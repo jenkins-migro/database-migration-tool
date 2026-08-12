@@ -23,6 +23,7 @@ Migrated the repository's declarative Jenkins pipeline from `Jenkinsfile` to Git
 - **Workflow file:** `.github/workflows/jenkins-migration.yml`
 - **Runner:** `ubuntu-latest`, equivalent to the generic Jenkins `agent any` for this shell-only pipeline
 - **Events:** `push`, `pull_request`, and `workflow_dispatch`
+- **Token permissions:** `permissions: {}` restricts the workflow's default `GITHUB_TOKEN` permissions.
 - **Branch conditions:**
   - Jenkins `branch "master"` migrated to `if: ${{ github.ref_name == 'master' }}`
   - Jenkins `not { branch "master" }` migrated to `if: ${{ github.ref_name != 'master' }}`
@@ -42,3 +43,6 @@ No Jenkins credentials, file credentials, environment variables, or secret bindi
 - Preserved branch-specific execution behavior.
 - Archived the original Jenkinsfile.
 - No shared library expansion was required because no shared libraries were referenced.
+- `actionlint` validation passed for `.github/workflows/jenkins-migration.yml`.
+- Secret scanning reported no secrets in changed files.
+- CodeQL Actions review reported zero alerts after adding explicit workflow permissions.
