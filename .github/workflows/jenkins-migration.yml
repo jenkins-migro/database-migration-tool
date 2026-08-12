@@ -1,0 +1,34 @@
+name: Jenkins Migration
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions: {}
+
+jobs:
+  pipeline:
+    name: Migrated Jenkins pipeline
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: One
+        run: echo "Hello"
+
+      - name: Evaluate Master
+        if: ${{ github.ref_name == 'master' }}
+        run: |
+          echo "World"
+          echo "Heal it"
+
+      - name: Branch Test
+        if: ${{ github.ref_name != 'master' }}
+        run: echo "Not master branch"
+
+      - name: Evaluate expression condition
+        run: echo "Should I run?"
+
+      - name: Expression Test
+        if: ${{ github.ref_name == '__jenkins_expression_returned_false__' }}
+        run: echo "This should be skipped"
